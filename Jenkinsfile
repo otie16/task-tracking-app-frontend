@@ -19,7 +19,7 @@
             }
         }
         
-        stage('Get Git SHA for injection') {
+        stage('Get Git SHA') {
             steps {
                 script {
                     env.GIT_SHA = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
