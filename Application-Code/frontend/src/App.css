@@ -1,0 +1,44 @@
+.task-app {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+.task-input input {
+  padding: 10px;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.task-input button {
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.task-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.task-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.task-list li.completed {
+  text-decoration: line-through;
+  color: gray;
+}
+
+.task-list button {
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
