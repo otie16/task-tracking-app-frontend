@@ -8,7 +8,7 @@ function App() {
   // Fetch tasks from the backend API
   useEffect(() => {
     const fetchTasks = async () => {
-      const response = await fetch("http://localhost:5000/api/tasks");
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/tasks`);
       const data = await response.json();
       setTasks(data);
     };
@@ -19,7 +19,7 @@ function App() {
   const handleAddTask = async () => {
     if (task.trim() !== "") {
       const newTask = { text: task, completed: false };
-      const response = await fetch("http://localhost:5000/api/tasks", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/tasks`, {
         method: "POST",
         body: JSON.stringify(newTask),
         headers: {
@@ -34,7 +34,7 @@ function App() {
 
   // Handle deleting a task
   const handleDeleteTask = async (id) => {
-    await fetch(`http://localhost:5000/api/tasks/${id}`, { method: "DELETE" });
+    await fetch(`${import.meta.env.VITE_API_URL}/tasks/${id}`, { method: "DELETE" });
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
@@ -42,7 +42,7 @@ function App() {
   const handleToggleCompletion = async (id) => {
     const taskToUpdate = tasks.find((task) => task.id === id);
     const updatedTask = { ...taskToUpdate, completed: !taskToUpdate.completed };
-    await fetch(`http://localhost:5000/api/tasks/${id}`, {
+    await fetch(`${import.meta.env.VITE_API_URL}/tasks/${id}`, {
       method: "PUT",
       body: JSON.stringify(updatedTask),
       headers: {
