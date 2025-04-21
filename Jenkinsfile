@@ -96,5 +96,31 @@ stage('Sonarqube Analysis') {
             }
         }
         
+        stage("CD - Deploy to EC2") {
+    steps {
+        script {
+            def remote = [:]
+            remote.name = 'application-server'
+            remote.host = '10.0.40.253'
+            remote.user = 'ubuntu'
+            remote.identityFile = '/home/ubuntu/server-access-key.pem'  // or use credentialsId
+            remote.allowAnyHosts = true
+            
+            sshCommand remote: remote, command: """
+                cd /home/ubuntu/app-directory
+
+                # Replace tag dynamically
+                sed -i 's|image: ${DOCKER_REPO_NAME}:.*|image: ${DOCKER_REPO_NAME}:${GIT_SHA}|' docker-compose.yml
+
+                # Pull and deploy updated containers
+                docker-compose down
+                docker-compose pull
+                docker-compose up -d
+            """
+        }
+    }
+}
+
+        
     }
 }
